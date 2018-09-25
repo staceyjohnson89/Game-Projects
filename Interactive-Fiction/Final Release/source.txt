@@ -1,0 +1,551 @@
+"Just some night" by Stacey Johnson
+
+Release along with an interpreter, the source text and a website.
+
+When play begins: say "You come home late in the evening, exhausted from a long day at work. You really think your boss doesn’t understand the difference between minimum wage workers and slave labor. You walk through the courtyard to your apartment and can hear shouting and screaming from the apartment next to yours. Your damn neighbors are throwing a party again. You hear chants of 'CHUG! CHUG! GHUG!' and then a rapturous roar of cheers. [italic type]Great[roman type], you think [italic type]I guess Im not getting any sleep tonight[roman type]."
+
+Part 0 - Initializations
+
+Chapter - General Initializations
+
+Use no scoring.
+
+Chapter - Player Intitializations
+
+[couldnt get the scene change to Scary to work when the player entered the bed so I introduced this value which allows for the scene change.]
+The player has a number called sleeping. The sleeping of the player is 0.
+
+The player has a number called player bitten. The player bitten of the player is 0.
+
+The player has a number called ending. The ending of the player is 0.
+[0 is playing, 1 is end it, 2 is press on]
+
+Instead of going nowhere, say "You have no reason to go there."
+
+The description of the player is "You're wearing your work clothes and look horribly disheveled. If someone didn't know any better they would think you'd been in a fight."
+
+[Apartment keys are held by the player.]
+
+Part 0.1 - Mechanics
+
+Chapter - using gun
+
+Chapter - Running
+
+[eventually want to allow running to somewhere and have the player be able to escape.]
+
+Chapter - Zombification
+
+[a mechanic which will allow people to turn into zombies]
+
+[ZOMBIE CHARACTERISTICS]
+Someone can be a zombie. Someone is usually not a zombie.
+
+A person can be bitten. A person is usually not bitten.
+
+A person can be dead. A person is usually not dead.
+
+A person has a number called Zombification. The Zombification of a person is 0.
+
+[RULES FOR ZOMBIFICATION]
+
+Every turn:
+	repeat with victim running through bitten people:
+		if victim is visible: [change this later]
+			if a random chance of 1 in 5 succeeds:
+				increase the zombification of victim by 1;
+				if victim is not a zombie:
+					say "[one of][The victim] coughs and looks ill.[or][the victim] grows more pale.[at random] "
+			
+Definition: a person is changing if his zombification is at least 5 and he is not a zombie.
+
+Every turn when the number of changing people > 0:
+	repeat with victim running through changing people:
+		now the victim is a zombie;
+		say "[The victim] suddenly turns towards you and begins to snarl."
+
+Every turn:
+	repeat with attacker running through visible zombie people:
+		try attacker attacking the player;
+		if attacker is not dead:
+			if a random chance of 1 in 5 succeeds:
+				end the game in death; [PLAYER DIES BY ZOMBIE]
+				say "[attacker] charges you again and kocks you to the ground. You feel teeth tearing into your neck. [italic type]";
+			otherwise:
+				say "[attacker] lunges at you. [one of]Attempting to rip the flesh from your body. [or] [attacker] grabs at your neck.[or] [attacker] narrowly misses your arm.[at random] "
+			
+[Every turn:
+	if a random chance of 1 in 5 succeeds:
+		say "[attacker] grabs hold you and bites deep into your neck."
+		end the game in death.]
+		
+[RULES FOR ZOMBIE INTERACTION]
+Instead of asking zombie person about anything, say "She snarls at you in response. It seems she isn't in the mood to chat."
+
+Instead of giving anything to a zombie person, say "She tries to bite your hand as you hand it to them. Probably shouldn't try that again."
+
+Instead of attacking a dead person: say "That seems excessive."
+
+Chapter - Curing Zombies
+
+[implement if time permits]
+
+Part 1 - The Courtyard (SCENE 1 - START)
+
+Start is a scene. Start begins when play begins. Start ends when Scary Sound begins. 
+
+Instead of listening during Start, say "You hear more yelling[one of] and the occassional yell of 'SHOTS!'[run paragraph on][or] and a loud crash of what you assume is furniture being broken[at random] coming from next door."
+
+The Apartment Courtyard is a room. The description of Apartment Courtyard is "[if player has bat][first time]You cautiously step outside. You can see two people in the distance. As you move closer you can see that one is a man and he is lying on the ground motionless. The other is a woman and is hunched over him and making strange sounds. [only][otherwise]The Courtyard is wonderfully landscaped. There is a path leading through the Courtyard and up to the different apartments. There are a few lamp posts lighting the otherwise dim path. You follow the path to your apartment which lies to the south and your neighbors apartment lies to the southeast."
+
+Chapter - Directional restrictions
+
+Instead of going Southeast during Start:
+	say "You glance over at your neighbors place. You think about going over for a moment but since you weren't invited you decide against it."
+	
+Instead of going west during Start:
+	say "You just got home! Why would you want to leave again?"
+
+Chapter - Scenery part 1
+
+Path is scenery in Apartment Courtyard. "A cement path which leads to all the apartments in the complex."
+
+Landscape is scenery in Apartment Courtyard. "The management has done a great job of keeping up with it. One of the reasons you chose this complex." Understand "landscaping" as landscape.
+
+Lamp Posts are scenery in Apartment Courtyard. "The lamp posts provide just enough light to navigate through the courtyard."
+
+Part 2 - Entering Apartment
+
+South of Apartment Courtyard is Your Apartment. 
+
+Understand "enter apartment" as south.
+
+Instead of going southeast in your apartment:
+	say "You have no reason to go there."
+
+Your Apartment is a room. The description of your apartment is "It's a decent place. A simple one bedroom. Not too fancy but then again you've never been the fancy type. Other than the few things in your [closet], your [bed], and [nightstand] your apartment has been pretty barren since she left." 
+
+[CLOSET]
+The closet is a container in your apartment. It is fixed in place. Instead of taking closet, say "That seems unreasonable." The description of the closet is "A small storage closet." The closet is closed and openable. In the closet is a bat and a jacket. The jacket is wearable. The description of the jacket is "[one of]Your lettermans jacket. It should be a proud reminder of you baseball prowess but now...[or]Another painful reminder of the life you used to have.[stopping]" 
+
+[BED STUFF]
+The bed is a supporter in your apartment. "[first time]You are exhausted from work and your bed [only]looks comfortable." The bed is enterable and fixed in place. Instead of taking bed, say "You're pretty tired and it looks heavy."  The description of the bed is "Looks comfortable." 
+
+[NIGHTSTAND]
+The Nightstand is a supporter in your apartment. "The nightstand sits next to your bed." The nightstand is not enterable. The nightstand is fixed in place. Instead of entering nightstand, say "You're losing it." Instead of taking nightstand, say "That seems like a lot of work." The description of the nightstand is "A simple nightstand." The photo is a thing on the nightstand.  "A single photo sits on your nightstand. The only one in your entire apartment."The description of the photo is "A photo of you and your ex Becca. You look at the photo and smile. It's a picture from your third date. She has her arms wrapped around your neck and she is kissing your cheek. [italic type]Definitely the best date you ever had.[roman type] You sign as you turn away from the photo. You wish you could have that back again... "
+
+Understand "get in [something]" as entering. Understand "sleep in [something]" as entering. Understand "sleep on [something]" as entering. Understand "go to bed" as entering. Understand "go to sleep" as entering.
+
+Instead of sleeping:
+	say "You're so tired you could probably fall asleep right here but your bed might be more comfortable..."
+	
+Understand "get out of [something]" as getting off.
+
+Chapter - Scenery part 2
+
+Bedroom is a scenery in Your Apartment. "This room is pretty empty other than your bed. It does look comfy though..."
+
+celiling is scenery in Your apartment.
+
+Instead of taking photo:
+	say "You better not. It's the only thing you have left of her and you don't want to risk ruining it."
+
+Chapter - bat stuff
+
+The description of the bat is "[one of]Seeing the bat always brings back memories. You won more games than you can remember with this bat. It used to be your prized posession but now it has no use but to gather dust in your closet.[or]You try not to look at it anymore. It only brings back painful memories. [stopping]" 
+
+Instead of taking the bat during Start: say "You're too tired to play baseball right now."
+
+[taking the bat any time other than when you hear the noises]
+After taking the bat: say "Taken."
+
+[taking the bat during the scary sound scene NOTE: will break if scene rules are changed and also scene rules should be changed so that the player must have the bat in inventory to leave during scary]
+After taking the bat during Scary Sound: say "You grasp the bat tightly in your hands. You still feel a little uneasy but having something sturdy in your hands helps."
+
+Chapter - Scary sound (SCENE 2 - SCARY SOUND)
+
+After entering bed: now the sleeping of the player is 1;
+	say "[one of]You drag yourself over to the bed and flop down. No matter how much time has passed you can't get over how big this bed feels without her in it. You sigh and close your eyes. [italic type]Becca...I wonder what she's doing now...[roman type] You finally drift off to sleep. [paragraph break] You feel like you've only been sleep a few moments when a loud scream startles you awake. [italic type]Damn neighbors[roman type] you think. You glance at the clock. 2:30am. [italic type]Seriously?[roman type] You lay down and stare at the ceiling, [italic type]what the hell do they do over there?![roman type] You hear more screaming and shouting from next door but it seems different from before. There's something off about it...[or] You lay in the bed and try to go back to sleep but there was something about that scream...[stopping]"
+
+Scary Sound is a scene. Scary Sound begins when the sleeping of the player is 1. Scary Sound ends when the player holds the bat. Instead of listening during Scary Sound, say "[first time]You listen closer.[only] The sounds don’t seem joyous anymore. They seem almost…terrified."
+
+Instead of going north during Scary Sound:
+	if bat is held by player, continue the action;
+	otherwise say "The noise outside doesn't sound pleasant. You'd feel better if you had something for protection."
+
+Part 3 - The Courtyard with zombie!! (SCENE 3 - COURTYARD ZOMBIE)
+
+Courtyard Zombie is a scene. Courtyard Zombie begins when Scary Sound ends. Courtyard Zombie ends when crouched woman is dead.
+
+Crouched woman is a woman in Apartment Courtyard. [the Zombification of crouched woman is 5.  Crouched woman is a zombie.] "[if player has bat][first time]You move even closer and look on with horror.[only] The man on the ground stares up at you with blank lifeless eyes, his stomach is torn open and his entrails are strewn about the ground. The woman crouched over him is covered in blood and appears to muttering to herself. She turns to you and you can see her face is dripping blood. Pieces of intestines hang from her mouth and the sight causes you to recoil. The woman begins to stand and lumber towards you." Understand "woman/zombie" as crouched woman.
+
+The description of crouched woman is "[if crouched woman is not dead]She is covered in blood and looks like death. Blood and body parts fall from her gaping mouth.[otherwise]She lies on the ground motionless. Bleeding from the place where your bat struck her skull."
+
+Instead of listening during Courtyard Zombie:
+	say "You hear the womans growling and the sickening sound of her chewing flesh."
+	
+Instead of listening during girl next door:
+	if player is in Apartment Courtyard:
+		say "Its eerily quiet."
+
+Chapter - Fighting the zombie
+
+Every turn during Courtyard Zombie, say "[if player is in Apartment Courtyard and crouched woman is not dead]The woman gets closer and closer.[run paragraph on][one of] You can see the hunger in her eyes.[or] You take a terrified step backwards.[at random]"
+
+Instead of attacking crouched woman: 
+	now crouched woman is dead;
+	say "You hit the woman over the head with your bat as she lunges at you. She falls to the ground and you breathe a sigh of relief. [italic type] What the hell was that about?[roman type] You glance over at your neighbors place to the southeast. [italic type]Maybe someone over there knows what's going on."
+	
+[Instead of attacking when crouched woman is dead:
+	say "She's no longer moving so theres no need for that."]
+	
+Understand "attack with [something]" as attacking. Understand "hit with [something]" as attacking. Understand "hit woman with [something]" as attacking.
+
+Chapter -COWARDS WILL NOT BE TOLERATED
+
+Understand "run" or "run away" as a mistake ("This is no time to be a coward!")
+
+Chapter - navigation restrictions
+
+[woman blocks the path onward until you kill her]
+Instead of going Southeast during Courtyard Zombie:
+	say "The woman blocks your path."
+	
+Instead of going west during Courtyard zombie:
+	say "You have no reason to go there."
+
+Chapter - Scenery part 3
+
+Dead guy is a man in apartment courtyard. Dead guy is dead."[if player has bat] You can see that the man on the ground is dead and stares back up at you with blank eyes, his stomach is torn open and entrails are strewn about the ground. " 
+
+[dead dude stuff]
+Eyes are scenery in apartment courtyard. "They stare up at you. Cold and lifeless. It sends chills up your spine."
+
+Understand "man" as dead guy.  The description of dead guy is "He doesnt look too good."
+
+Entrails are scenery in Apartment Courtyard. "The sight makes you nauseous."
+
+Stomach is scenery in Apartment Courtyard. "Pinkish and dripping with blood."
+
+Ground is scenery in Apartment courtyard. "The once crisp and clean path is now stained with blood."
+
+Intestines are scenery in Apartment courtyard. "The pieces fall from the womans mouth."
+
+courtyard blood is scenery in apartment courtyard. "The ground is stained with blood."
+
+Part 4 - Next door (SCENE 4 - GIRL NEXT DOOR)
+
+Girl Next Door is a scene. Girl next door begins when Courtyard zombie ends. Girl next door ends when the player holds the gun.
+
+Next Door is a room. "[first time ]You follow the path up to your neighbors door. You reach your neighbors front steps and you can see that the door is cracked open. You approach it slowly and make your way into the dimly lit apartment. [only]The apartment looks a lot like your own aside from the horrible mess. It's clear that there was a wild party here. Stains litter the walls and the floor is sticky. [first time]You wonder what could have happened here.[only]" 
+
+Neighbors closet is a container in next door. It is fixed in place. Instead of taking neighbors closet, say "That seems unreasonable." The neighbors closet is closed and openable. "[if young girl is not a zombie]You can hear crying coming from somewhere. It seems like it may be coming from the closet...[otherwise] You see the girl there but she isn't crying anymore. Her face is twisted in a sick expression and she growls and looks at you." The description of neighbors closet is "[if young girl is not a zombie]A small storage closet...you can hear crying coming from inside.[otherwise]The girl emerges from the small closet growling with hunger."
+
+After opening neighbors closet: say "You slide open the door and find a young girl hiding inside. She shrieks and cowers in the corner. 'Stay away!' she screams.[paragraph break] 'It's ok. I'm not going to hurt you,' you explain, 'My names Jake. I live next door.' [paragraph break] She eyes you carefully but soon moves to the door apparently believing you. [italic type]Maybe this girl knows what happened here. "
+
+Southeast from Apartment Courtyard is next door.
+
+Instead of listening during Girl Next door:
+	say "[if closet is closed]You hear crying.[otherwise]You hear the girls gentle sobbing."
+
+Chapter - Scenery part 5
+
+Neighbors door is scenery in Next Door. "Looks a lot like yours but thats not really surprising."
+
+front steps are scenery in Next Door.
+
+Mess is scenery in Next Door. "And you thought your apartment was a wreck..."
+
+Stains are scenery in Next door. "You can see an assortment of stains covering the walls. They're dark in color and almost look like...blood? What happened here?!"
+
+Understand "walls" as stains.
+
+Floor is scenery in Next door. "Your feet stick to the floor as you walk. You look down and see there beer covering the floor. [italic type] Ugh. What a mess."
+
+Beer is scenery in Next Door. "Looks like the cheap stuff. What a classy party."
+
+Chapter - girl descriptions
+
+A young girl is a woman in the neighbors closet. The printed name of young girl is "The girl" 
+
+The description of the young girl is "[if young girl is not a zombie]She sits on the floor holding her knees to her chest and looks terrified. She clutches a wound on her arm as blood from it drips down her arm. You can't quite make out what the wound is from here but it looks like...teeth marks?[otherwise]The girl is snarling and moving toward you." Understand "girl" as young girl.
+
+[Young girl is bitten. The zombification of the young girl is 1.]
+
+[Girls wounds descriptions]
+
+wound is scenery in next door. "You look closer at the marks on her arm and they are definitely bite marks."
+
+Understand "bite marks" as wound. Understand "arm" as wound. Understand "girls arm" as wound. Understand "teeth marks" as wound.
+
+Girls Blood is scenery in next door. "[if young girl is visible]The blood drips down the girls arm.[otherwise] The blood is a deep crimson color."
+
+Understand "her" as young girl.
+
+Chapter - girl questions
+
+[ASKING ABOUT WHAT HAPPENED/PARTY]
+Instead of asking the young girl about "what happened": say "'I came over here for the party and all of a sudden everyone was screaming. Everyone was leaving but I just ran and hid,' she sobs. 'I just didn't know what to do.'"
+
+Instead of asking the young girl about "party": say "'This is my friend's brothers apartment. We weren't even supposed to be here.'"
+
+Instead of asking the young girl about "her friend": say "'She went missing in the confusion...' Her eyes well up with tears."
+
+[ASKING ABOUT HER BITE]
+Instead of asking the young girl about "teeth marks": say "'Some crazy woman bit me! She was the cause of this whole mess. Some guy pulled her off me though. I lost track of him in the confusion but I hope hes ok.' [paragraph break] [italic type]Something really weird is going on. You should probably get out of here.[roman type] The girls crying breaks your chain of thought. [italic type]Damn it. I can't just leave her here."
+
+Instead of asking the young girl about "bite marks": say "'Some crazy woman bit me! She was the cause of this whole mess. Some guy pulled her off me though. I lost track of him in the confusion but I hope hes ok.' [paragraph break] [italic type]Something really weird is going on. You should probably get out of here.[roman type] The girls crying breaks your chain of thought. [italic type]Damn it. I can't just leave her here."
+
+Instead of asking the young girl about "arm": say "'Some crazy woman bit me! She was the cause of this whole mess. Some guy pulled her off me though. I lost track of him in the confusion but I hope hes ok.' [paragraph break] [italic type]Something really weird is going on and this apartment is the last place you want to be. You should probably leave.[roman type] The girls crying breaks your chain of thought. [italic type]Damn it. I can't just leave her here."
+
+[ASK ABOUT WOMAN]
+
+Instead of asking the young girl about "the crazy woman": say "'She just started attacking everyone! She came out of nowhere!'"
+
+Instead of asking the young girl about "crazy woman": say "'She just started attacking everyone! She came out of nowhere!'"
+
+Instead of asking the young girl about "woman": say "'She just started attacking everyone! She came out of nowhere!'"
+
+[ASK TO COME WITH YOU]
+
+Instead of asking the young girl about "leaving": say "'NO!' she exclaims. 'I won't leave here. Not without what's in my car.'"
+
+Instead of asking the young girl about "coming with me": say "'NO!' she exclaims. 'I won't leave here. Not without what's in my car.'"
+
+[ASKING ABOUT HER CAR]
+Instead of asking the young girl about "whats in her car": say "'A way to protect myself,' she replies. 'My car is a green prius in the parking lot west of the Courtyard. If you get it I'll come with you.'"
+
+Instead of asking the young girl about "car": say "'In it there is something that can protect us,' she replies. 'My car is a green prius in the parking lot west of the Courtyard. If you get it I'll come with you.'"
+
+Instead of asking the young girl about "her car": say "'In it there is something that can protect us,' she replies. 'My car is a green prius in the parking lot west of the Courtyard. If you get it I'll come with you.'"
+
+Instead of asking the young girl about "what's in her car": say "'A way to protect myself from those things.' she replies. 'My car is a green prius in the parking lot west of the Courtyard. If you get it I'll come with you.'"
+
+[ASKING ABOUT OTHER THINGS]
+Instead of asking the young girl about "zombies": say "'Is that what that was?'she asks."
+
+Instead of asking the young girl about anything else, say "She just sits and sobs."
+
+Instead of giving anything to a the young girl, say "'I don't want that!'"
+
+[SYNONYMS]
+Understand "leave with girl" or "ask girl to come with me" as a mistake ("'NO!' she exclaims. 'I won't leave here. Not without what's in my car.'")
+
+Part 5 - Parking lot (SCENE 5 - ZOMBIE NEXT DOOR)
+
+Zombie next door is a scene. Zombie next door begins when girl next door ends. Zombie next door ends when player is in street.
+
+Instead of listening during girl next door:
+	if player is in parking lot:
+		say "Its eerily quiet."
+
+west of Apartment Courtyard is Parking Lot. The green prius is a closed openable fixed in place container in the parking lot. Inside the green prius is a loaded gun. The description of the parking lot is "[first time] You walk cautiously into the parking lot and begin searching for the green prius. [only] The parking lot has several cars but it otherwise vacant and unusually quiet tonight.[if young girl is dead] Beccas house lies to the north from here."
+
+Chapter - car
+
+Understand "enter car" or "drive car" or "drive prius" or "start car" or "start prius" or "drive green prius" as a mistake ("[italic type]I just need something out of the trunk.")
+
+[if player has the keys then can get the item from the trunk.]
+
+Understand "open trunk of [something]" as opening.
+
+After taking gun:
+	if young girl is not dead:
+		now the zombification of the young girl is 5;
+		now the young girl is a zombie;
+		say "Ok now you should go back and get that girl. You can't leave her all alone.";
+	otherwise:
+		say "Taken."
+
+Chapter - scenery part 5
+
+Cars are scenery in parking lot. "You look at all the cars and wish you hadn't had to sell yours."
+
+Part 7 - Zombie next door
+		
+[LISTENING]
+Instead of listening during Zombie next door:
+	if player is in Next door:
+		say "The girls crying is replaced with horrible moaning and growling."
+		
+Instead of listening during Zombie next door:
+	if player is in Apartment Courtyard:
+		say "Its eerily quiet."
+		
+Instead of listening during Zombie next door:
+	if player is in parking lot:
+		say "Its eerily quiet."
+
+[attacking and such]
+When zombie next door begins:
+	now the young girl is bitten;
+	increase the zombification of young girl by 5;
+	now the young girl is a zombie.
+	
+Instead of attacking young girl:
+	if young girl is a zombie:
+		now young girl is dead;
+		say  "She lunges at you again but you manage to kill her before she can get you. You stare down at the umoving body of the girl. You wish you had been able to help her.[paragraph break] [italic type]Becca! I need to make sure she's ok![roman type] Her house isn't far and you begin to march off towards it. [italic type]Wait,[roman type] you pause, [italic type]I'm sure she doesn't want to see me.[roman type] You stand there for a moment deciding what you should do. [italic type]It doesn't matter![roman type] You decide. [italic type]I'm going to find her whether she wants me to or not.[roman type] You resolve to find Becca and set off to her house north of the parking lot.";
+	otherwise:
+		now the young girl is dead;
+		say "'NO!' screams the girl. 'What are you doing?!' You move toward the girl and she lets out an ear piercing scream. It only takes a second and its over. She lies on the ground unmoving and all is quiet."
+
+	
+[Every turn:
+	if young girl is visible:
+		if young girl is not dead:
+			if young girl is a zombie:
+				say "The girl attacks you and attempts to bite your[one of] neck.[or] arm.[at random] [run paragraph on]"]
+		
+Part 8 - Road to Beccas (SCENE 6 - ROAD TO BECCAS)
+
+Road to Beccas is a scene. Road to Beccas begins when zombie next door ends. Road to Beccas ends when the player is in Inside Beccas.
+
+Instead of listening during road to beccas:
+	say "Distant moans and screaming pierce the otherwise eerie silence."
+ 
+[street]
+ Street is north of parking lot.  The description of the street is "[first time]You step out into the deserted street. As you walk down the road you hear occasional yells or distant moaning but don't see anything. You walk for a while longer when you spot what appears to be a person lying in the road. You start to run up them but stop when you get close enough. [only] In the middle of the street a woman lies with her head nearly ripped off her body. [first time] Your stomach turns at the sight. [only] West of here is your old college and Beccas house."
+ 
+ [school]
+ Your old college is west of street. "[first time]You walk up to the front of the college you used to attend. [italic type]Wow. Its been a long time, [roman type]you think. The last time you were here you were meeting with your coach who told you they can't have a pitcher with a broken leg on the team. In that one conversation your future ended. Your career as a baseball player. Your full ride to college. Becca. In one fell swoop everything good in your life disappeared.[only] Now the college is a desolate wasteland. West of here is Beccas house."
+ 
+Chapter - Scenery part 8
+
+[street]
+The beheaded woman is scenery in the street. "The woman is completely torn apart and is unrecognizeable. You have to turn away to keep from throwing up."
+
+[school]
+
+
+
+Part 9 - Beccas (SCENE 7 - AT BECCAS)
+
+At Beccas is a scene. At Beccas begins when Road to Beccas ends. At Beccas ends when the Becca is dead.
+
+Instead of listening during at beccas:
+	say "It's quiet here."
+
+Chapter - Scenery part 9
+
+[outside]
+West of your old college is Becca's House. The description of Becca's House is "[first time]You stand on her front lawn and think about the first time you came here. It was the last time you saw Becca. You stood in this very same spot and begged her to come back. You still remember her response...[paragraph break] 'No. I can't Jake. I can't and you know it. When you broke your leg you gave up on everything. You gave up on baseball, school, and you gave up on me.' You started to protest but she stopped you, 'Don't. I think it's time for you to go.' [paragraph break][only] You look up at the house and see that the door has broken down. [first time]You hope you're not too late.[only] The front door is to the west"
+
+Understand "enter house" as west.
+
+[inside]
+West of Becca's house is Inside Beccas. The description of Inside Beccas is "The place is completely trashed. It looks as if there was a horrible struggle here. [first time]Your heart sinks. [italic type] No. I didnt get here in time. [roman type]You walk further inside and call out, 'Becca!' You hear nothing. 'Becca! It's me! Are you here?' You hear a voice come from the rear of the house. 'Jake?'[only] "
+
+Chapter - Becca
+
+Becca is a woman in Inside Beccas. "A woman steps out of the shadows. 'Becca!' You yell with joy." Becca is bitten. The zombification of the Becca is 3. 
+
+The description of Becca is "[if becca is not dead]She is just as beautiful as you remember...[first time] She is covered in blood and you cant tell if its her own or someone elses until you spot a mark on her neck.[only][otherwise]You can't bear to look." 
+
+Chapter - Scenery in Beccas
+
+mark is scenery in inside beccas."You look closer and your joy is replaced with devestation as you realize shes been bitten."
+
+Understand "wound" as mark. Understand "bite" as mark. Understand "neck" as mark.
+
+beccas blood is scenery in Beccas. "It flows from wound on her neck and down her body."
+
+Chapter - Talking to Becca
+
+[ASK TO LEAVE]
+
+Instead of asking Becca about "leaving": say "'I can't,' She cries, 'I wish I could but I can't. Jake I'm not going to make it out of here.'"
+
+Instead of asking Becca about "come with me": say "'I can't,' She cries, 'I wish I could but I can't. Jake I'm not going to make it out of here.'"
+
+[ASKING ABOUT BITE]
+Instead of asking Becca about "mark": say "'Oh...yeah,' she clutches her neck, 'I know its not good. Jake, I need you to do me a favor. I've seen what happens when you get bitten and I don't want that to be me.' You try to argue but she stops you. 'I know. But theres nothing you can do for me now. Please. I need you to kill me.'"
+
+Instead of asking Becca about "bite": say "'Oh...yeah,' she clutches her neck, 'I know its not good. Jake, I need you to do me a favor. I've seen what happens when you get bitten and I don't want that to be me.' You try to argue but she stops you. 'I know. But theres nothing you can do for me now. Please. I need you to kill me.'"
+
+Instead of asking Becca about "wound": say "'Oh...yeah,' she clutches her neck, 'I know its not good. Jake, I need you to do me a favor. I've seen what happens when you get bitten and I don't want that to be me.' You try to argue but she stops you. 'I know. But theres nothing you can do for me now. Please. I need you to kill me.'"
+
+Instead of asking Becca about "bite mark": say "'Oh...yeah,' she clutches her neck, 'I know its not good. Jake, I need you to do me a favor. I've seen what happens when you get bitten and I don't want that to be me.' You try to argue but she stops you. 'I know. But theres nothing you can do for me now. Please. I need you to kill me.'"
+
+[ASK WHY]
+
+Instead of asking becca about "why": say "'Because I've seen what happens when people get bitten,' her eyes well up with tears, 'I don't want to be like that. Please. I need you to do it.'"
+
+
+[BREAK UP]
+Instead of asking Becca about "breakup": say "'Jake, you gave up on everything when you couldn't play baseball anymore. You gave up on your life and I wasn't ready to give up on mine. I left because I had to."
+
+Instead of asking Becca about "break-up": say "'Jake, you gave up on everything when you couldn't play baseball anymore. You gave up on your life and I wasn't ready to give up on mine. I left because I had to."
+
+Instead of asking Becca about "why she left": say "'Jake, you gave up on everything when you couldn't play baseball anymore. You gave up on your life and I wasn't ready to give up on mine. I left because I had to."
+
+[OTHER THINGS]
+
+Instead of kissing Becca: say "This may not be a good time."
+
+Instead of giving anything to Becca: say "'I don't think I'll have much use for that anymore.'"
+
+Instead of asking Becca about anything: say "We don't have much time."
+
+Chapter - Killing Becca
+
+Understand "shoot becca" as attacking. Understand "shoot becca with [something]" as attacking.
+
+Instead of attacking becca:
+	if Becca is not a zombie:
+		now Becca is dead;
+		say "Your eyes well up with tears as you raise the gun to her head. She smiles at you. That beautiful smile you had grown to love so much. 'I love you Jake,' She says. Tears roll down your face as you reply, 'I love you too.' You close your eyes and pull the trigger.";
+	Otherwise:
+		now Becca is dead;
+		say "Your eyes well up with tears as you raise the gun to her head. She snarls at you and lunges with a final attack. Tears roll down your face as you whisper, 'I'm sorry Becca.' You close your eyes and pull the trigger."
+
+
+Part 10 - The end
+
+The end is a scene. The end begins when At Beccas ends.
+
+When at Beccas ends:
+	say "Tears pour down your face. [italic type]What is there left now?[roman type] you wonder. Should you just END IT or should you KEEP GOING?"
+
+Chapter - Endings 
+
+Chapter - get killed by a zombie
+
+[After getting bitten: now the Zombification of the player equals 5;
+	say "They lunge at you and rip the flesh from your neck. You feel yourself fading as you fall to the ground. Your vision begins to fade as your attacker comes back in for another bite.";
+	end the game in death.]
+
+[Instead of attacking crouched woman:
+say "You smack the woman over the head with the bat and she falls to the ground limp. You definitely won't be attending any of their parties any time soon.";
+end the game in victory.]
+
+Chapter - Final endings
+
+[END IT]
+Understand "end it" as southwest.
+
+Instead of going southwest during the end:
+	say "She was all you had left in this world. How can you keep going without her? You put the gun up to your head and close your eyes.";
+	end the game in death.
+
+[Understand "end it" as a mistake ("She was all you had left in this world. How can you keep going without her? You put the gun up to your head and close your eyes.")]
+	
+[if "end it":
+	say "She was all you had left in this world. How can you keep going without her? You put the gun up to your head and close your eyes.";
+	end the game in death.]
+
+[KEEP GOING]
+[I want to say press on damnit. Why does it not work?!!!]
+Understand "keep going" as up.
+
+Instead of going up during the end:
+	say "You have to keep living. For her. You gave up once before and lost her because of it. You won't make that mistake again.";
+	end the story.
+
+[Understand "press on" as a mistake ("You have to keep living. For her. You gave up once before and lost her because of it. You won't make that mistake again.")]
+
+
+[Instead of "press on":
+	"You have to keep living. For her. You gave up once before and lost her because of it. You won't make that mistake again"
+end the story]
+
